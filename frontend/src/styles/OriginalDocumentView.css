@@ -1,0 +1,17 @@
+.OriginalDocumentViewContainer {
+    /* Styles already defined in App.css for layout */
+    /* Add specific styles for document content if needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content like title */
+}
+
+.OriginalDocumentViewContainer h2 {
+    color: #cccccc; /* Lighter grey for heading */
+}
+
+.OriginalDocumentViewContainer p {
+    text-align: left;
+    width: 90%; /* Give some padding to the text */
+    line-height: 1.6;
+} 

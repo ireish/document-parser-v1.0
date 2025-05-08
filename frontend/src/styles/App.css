@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #121212; /* Dark background */
+  color: #e0e0e0; /* Light text for contrast */
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Basic styling for the three main panels */
+.ControlsContainer,
+.OriginalDocumentViewContainer,
+.ExtractedDataViewContainer {
+  border: 1px solid #333; /* Slightly lighter border for visibility */
+  border-radius: 8px;
+  background-color: #1e1e1e; /* Slightly lighter dark shade for panels */
+  margin: 5px;
+  padding: 15px;
+  box-sizing: border-box;
+  overflow-y: auto; /* Allow scrolling within panels if content overflows */
+}
+
+.ControlsContainer {
+  flex: 1;
+  max-width: 250px; /* Fixed width for the left panel */
+  display: flex;
+  flex-direction: column;
+}
+
+.OriginalDocumentViewContainer {
+  flex: 3; /* Takes up more space in the middle */
+}
+
+.ExtractedDataViewContainer {
+  flex: 2; /* Right panel */
+} 

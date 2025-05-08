@@ -1,0 +1,43 @@
+.ExtractedDataViewContainer {
+    /* Styles already defined in App.css for layout */
+    display: flex;
+    flex-direction: column;
+}
+
+.ExtractedDataViewContainer h2 {
+    color: #cccccc; /* Lighter grey for heading */
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.ExtractedField {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2a2a2a;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    border: 1px solid #383838;
+}
+
+.ExtractedField span {
+    flex-grow: 1;
+    margin-right: 10px;
+    word-break: break-all; /* Prevent long values from breaking layout */
+}
+
+.ExtractedField button {
+    background-color: #4CAF50; /* Example green */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.ExtractedField button:hover {
+    background-color: #45a049;
+} 

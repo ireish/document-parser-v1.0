@@ -1,0 +1,31 @@
+node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/*
+
+# Vite & build output
+dist
+dist-ssr
+*.local
+.vite
+
+# Cache & logs
+.cache
+.vitepress/cache
+.vitepress/dist
+.vite-ssg-temp
+.vite-ssg-dist
+
+# Environment variables
+.env
+.env.*
+!.env.example
