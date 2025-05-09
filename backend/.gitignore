@@ -4,3 +4,7 @@ venv/
 ## Ignore uploaded files
 uploads/
 
+## Ignore all __pycache__ folders
+**/__pycache__/
+*.py[cod]
+*$py.class

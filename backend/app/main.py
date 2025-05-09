@@ -5,8 +5,14 @@ import logging
 from contextlib import asynccontextmanager
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
-from app.api.v1.endpoints import documents
+from app.api.endpoints import documents
+from app.db.database import engine
+from app.db import models
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -18,6 +24,9 @@ UPLOAD_DIR = Path("./uploads")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup logic
+    # Create database tables
+    models.Base.metadata.create_all(bind=engine)
+    logger.info("Database tables created.")
     logger.info("Application startup complete.")
     # You can add other startup logic here, e.g., DB connection test
     yield
@@ -46,7 +55,7 @@ app.add_middleware(
 app.mount("/files", StaticFiles(directory=str(UPLOAD_DIR)), name="files")
 
 # Include routers
-app.include_router(documents.router, prefix="/api/v1/documents", tags=["documents"])
+app.include_router(documents.router, prefix="/api/documents", tags=["documents"])
 
 @app.get("/health", tags=["health"])
 async def health_check():

@@ -1,2 +1,8 @@
 # Add temp folder
 temp/
+
+# Add package-lock.json
+package-lock.json
+
+# Add node_modules
+node_modules/
