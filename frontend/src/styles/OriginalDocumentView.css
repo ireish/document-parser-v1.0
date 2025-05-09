@@ -4,14 +4,56 @@
     display: flex;
     flex-direction: column;
     align-items: center; /* Center content like title */
+    width: 100%;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    text-align: center; /* Center messages */
+    flex: 1; /* Take up remaining space in DocumentSection */
+    overflow-y: auto; /* Enable vertical scrolling within this container */
 }
 
 .OriginalDocumentViewContainer h2 {
-    color: #cccccc; /* Lighter grey for heading */
+    margin-bottom: 15px;
+    color: #333;
 }
 
 .OriginalDocumentViewContainer p {
+    font-size: 1em;
+    color: #666;
     text-align: left;
     width: 90%; /* Give some padding to the text */
     line-height: 1.6;
+}
+
+.ResponsiveMedia {
+    max-width: 100%;
+    height: auto; /* Maintain aspect ratio for images */
+    display: block; /* Remove extra space below image */
+    margin: 0 auto; /* Center the image */
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.ResponsiveMediaPdf {
+    width: 100%;
+    min-height: 55vh; /* Decreased further to avoid outer scrolling */
+    height: 60vh; /* Decreased further to avoid outer scrolling */
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Fallback content styling for PDF object */
+.ResponsiveMediaPdf p {
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.ResponsiveMediaPdf a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.ResponsiveMediaPdf a:hover {
+    text-decoration: underline;
 } 

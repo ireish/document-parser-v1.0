@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #121212; /* Dark background */
   color: #e0e0e0; /* Light text for contrast */
+  overflow: hidden; /* Prevent body scrolling */
 }
 
 .App {
@@ -14,34 +15,46 @@ body {
   flex-direction: row;
   height: 100vh;
   width: 100vw;
-  padding: 10px;
   box-sizing: border-box;
+  padding: 8px;
+  overflow: hidden; /* Prevent App scrolling */
 }
 
 /* Basic styling for the three main panels */
-.ControlsContainer,
-.OriginalDocumentViewContainer,
+.LeftPanel,
+.DocumentSection,
 .ExtractedDataViewContainer {
   border: 1px solid #333; /* Slightly lighter border for visibility */
   border-radius: 8px;
   background-color: #1e1e1e; /* Slightly lighter dark shade for panels */
-  margin: 5px;
-  padding: 15px;
+  margin: 4px;
+  padding: 12px;
   box-sizing: border-box;
-  overflow-y: auto; /* Allow scrolling within panels if content overflows */
+  overflow: hidden; /* Change from auto to hidden to prevent outer scrolling */
+  height: calc(100vh - 24px); /* Adjust to match smaller padding */
 }
 
-.ControlsContainer {
-  flex: 1;
-  max-width: 250px; /* Fixed width for the left panel */
+.LeftPanel {
+  flex: 0 0 15%; /* Fixed width of 15% */
   display: flex;
   flex-direction: column;
+  gap: 15px; /* Reduced from 20px */
+  overflow-y: auto; /* Enable vertical scrolling within this panel */
 }
 
-.OriginalDocumentViewContainer {
-  flex: 3; /* Takes up more space in the middle */
+/* Add border separation between components in LeftPanel */
+.LeftPanel > *:not(:last-child) {
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px; /* Reduced from 20px */
+}
+
+.DocumentSection {
+  flex: 0 0 65%; /* Fixed width of 65% */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .ExtractedDataViewContainer {
-  flex: 2; /* Right panel */
+  flex: 0 0 20%; /* Fixed width of 20% */
 } 

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/ExtractedDataView.css';
+import DocumentHeader from './DocumentHeader';
 
 interface ExtractedFieldProps {
   fieldName: string;
@@ -32,15 +33,17 @@ const ExtractedDataView: React.FC = () => {
 
   return (
     <div className="ExtractedDataViewContainer">
-      <h2>Extracted Data</h2>
-      {extractedData.map((item) => (
-        <ExtractedField
-          key={item.fieldName}
-          fieldName={item.fieldName}
-          value={item.value}
-          onEdit={() => handleEdit(item.fieldName)}
-        />
-      ))}
+      <DocumentHeader title="Extracted Data" />
+      <div className="ExtractedDataContent">
+        {extractedData.map((item) => (
+          <ExtractedField
+            key={item.fieldName}
+            fieldName={item.fieldName}
+            value={item.value}
+            onEdit={() => handleEdit(item.fieldName)}
+          />
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,13 @@
+.LeftPanel {
+  flex: 0 0 15%; /* Fixed width of 15% */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Reduced from 20px */
+  overflow-y: auto; /* Enable vertical scrolling within this panel */
+}
+
+/* Add border separation between components in LeftPanel */
+.LeftPanel > *:not(:last-child) {
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px; /* Reduced from 20px */
+} 
