@@ -11,6 +11,7 @@ This intuitive web application lets you upload documents and automatically extra
 - **Document History:** View all your previously processed documents
 - **Document Preview:** See the original uploaded document
 - **Data Management:** Review and manage extracted information
+- **Secure Storage:** All document data safely stored in a database
 
 ## 🛠️ Getting Started
 
@@ -103,16 +104,15 @@ This intuitive web application lets you upload documents and automatically extra
 
 ### How does the application handle ambiguous data formats?
 
-Coming Soon . . .
+The AI extraction engine uses contextual clues to properly identify and separate fields like first and last names, even when they appear together.
 
 ### How are different date formats standardized?
 
-Coming Soon . . .
+The system detects and normalizes various date formats (MM/DD/YYYY, DD/MM/YYYY) into a consistent ISO format for storage and display.
 
 ### What LLM model is used for extraction?
 
-Coming Soon . . .
-
+We use Groq's LLM service which provides fast inference and high accuracy for document parsing tasks.
 
 ## 🌟 Contributing
 

@@ -6,3 +6,6 @@ package-lock.json
 
 # Add node_modules
 node_modules/
+
+# Ignore __pycache__
+**/__pycache__/
