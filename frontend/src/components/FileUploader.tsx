@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { uploadFile } from '../api/api';
+import { uploadFile, getDocumentContent } from '../api/api';
 import '../styles/FileUploader.css';
 
 interface FileUploaderProps {
-  onFileUploadSuccess: (fileUrl: string, fileType: string, fileName: string) => void;
+  onFileUploadSuccess: (documentId: string, fileType: string, fileName: string) => void;
 }
 
 const FileUploader: React.FC<FileUploaderProps> = ({ onFileUploadSuccess }) => {
@@ -41,15 +41,23 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileUploadSuccess }) => {
         try {
           setUploadMessage('Uploading...');
           const response = await uploadFile(file);
-          // Construct the file URL - using the backend's file serving endpoint
-          const fileUrl = `http://localhost:8000/files/${response.filename}`;
+          
+          // No longer fetch document content here
           setUploadMessage(`File uploaded successfully: ${response.original_filename}`);
-          console.log("File URL: ", fileUrl);
-          // Pass the original filename to the parent component
-          onFileUploadSuccess(fileUrl, file.type, response.original_filename);
+          console.log("Document UUID: ", response.uuid);
+          // Pass the document ID, type, and name to the parent component
+          onFileUploadSuccess(response.uuid, file.type, response.original_filename);
           setSelectedFile(null); // Clear selected file after successful upload
         } catch (err: any) {
-          setError(err.message || 'Upload failed. Please try again.');
+          // setError(err.message || 'Upload failed. Please try again.'); // Original error handling
+          // Keep existing error handling for upload itself
+          let errorMessage = 'Upload failed. Please try again.';
+          if (err.message) {
+            errorMessage = err.message;
+          } else if (err.response && err.response.data && err.response.data.detail) {
+            errorMessage = err.response.data.detail;
+          }
+          setError(errorMessage);
           setUploadMessage('');
           setSelectedFile(null);
         }

@@ -80,6 +80,7 @@ def identify_document_type(client: Groq, image_data: str) -> Dict[str, str]:
     
     For EAD Card, leave country and state as empty strings.
     For Passport, leave state as an empty string.
+    For Driver License, leave country as an empty string.
     """
     
     def make_api_call(image_data, prompt):
@@ -160,7 +161,7 @@ def extract_document_info(client: Groq, image_data: str, doc_info: Dict[str, str
         Respond with a valid JSON object containing all these fields. Leave empty string for fields not found.
         """
     elif "license" in doc_type or "driver" in doc_type:
-        location = f"{state}, {country}".strip(", ")
+        location = f"{state}".strip(", ")
         prompt = f"""
         You are examining a Driver License from {location}, USA.
         Extract the following attributes with high accuracy:
@@ -184,7 +185,7 @@ def extract_document_info(client: Groq, image_data: str, doc_info: Dict[str, str
         - Document Number
         - Issue Date
         - Expiry Date
-        - Any other relevant information
+        - Country of Issue
         
         Respond with a valid JSON object containing all these fields.
         """
