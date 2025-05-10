@@ -12,6 +12,7 @@ uploads/
 ## Ignore .db files
 .db
 
-## Ignore all .env files
+## Ignore all .env file, not .env.example
 .env
 
+## Ignore all .DS_Store files
