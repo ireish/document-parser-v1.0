@@ -8,3 +8,10 @@ uploads/
 **/__pycache__/
 *.py[cod]
 *$py.class
+
+## Ignore .db files
+.db
+
+## Ignore all .env files
+.env
+
