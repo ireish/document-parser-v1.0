@@ -56,24 +56,24 @@ Follow these steps to set up and run the application on your local machine.
 ### 1. Backend Setup (FastAPI)
 
    a.  **Navigate to the backend directory:**
-       ```bash
+       ```
        cd backend
        ```
 
    b.  **Create and activate a Python virtual environment:**
        *   On macOS and Linux:
-           ```bash
+           ```
            python3 -m venv venv
            source venv/bin/activate
            ```
        *   On Windows:
-           ```bash
+           ```
            python -m venv venv
            .\venv\Scripts\activate
            ```
 
    c.  **Install dependencies:**
-       ```bash
+       ```
        pip install -r requirements.txt
        ```
        This will install FastAPI, Uvicorn, SQLAlchemy, and other necessary Python packages.
@@ -82,7 +82,7 @@ Follow these steps to set up and run the application on your local machine.
        The application is configured to create database tables automatically on startup (as defined in `backend/app/main.py` within the `lifespan` context manager).
 
    e.  **Run the FastAPI development server:**
-       ```bash
+       ```
        uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
        ```
        The backend API should now be running at `http://localhost:8000`. You can check its health at `http://localhost:8000/health`.
@@ -90,18 +90,18 @@ Follow these steps to set up and run the application on your local machine.
 ### 2. Frontend Setup (React + Vite)
 
    a.  **Navigate to the frontend directory (from the project root):**
-       ```bash
+       ```
        cd frontend
        ```
 
    b.  **Install Node.js dependencies:**
-       ```bash
+       ```
        npm install
        ```
        (or `yarn install` if you prefer yarn)
 
    c.  **Run the React development server:**
-       ```bash
+       ```
        npm run dev
        ```
        (or `yarn dev`)
@@ -126,4 +126,3 @@ This section outlines some key questions and challenges related to document data
     *   Coming Soon...
 
 ---
-*This README was generated with assistance from an AI Pair Programmer.* 
