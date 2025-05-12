@@ -8,6 +8,8 @@ uploads/
 **/__pycache__/
 *.py[cod]
 *$py.class
+app/__pycache__/
+
 
 ## Ignore .db files
 .db
@@ -15,4 +17,5 @@ uploads/
 ## Ignore all .env file, not .env.example
 .env
 
-## Ignore all .DS_Store files
+# But allow .env.example
+!.env.example
