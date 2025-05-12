@@ -50,10 +50,6 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-# Mount the uploads directory as a static file server
-# This will allow access to files via http://localhost:8000/files/{filename}
-app.mount("/files", StaticFiles(directory=str(UPLOAD_DIR)), name="files")
-
 # Include routers
 app.include_router(documents.router, prefix="/api/documents", tags=["documents"])
 
