@@ -43,16 +43,6 @@ Based on this evaluation, I selected **Llama 4 Scout** as the primary model due 
 
 ---
 
-## ✅ Testing & Validation
-
-The application and the underlying extraction model were tested using a diverse set of sample documents obtained online, covering examples of Passports, EAD cards, and US Driver's Licenses.
-
-*   **Scope:** 15 distinct document images/PDFs were processed.
-*   **Results:** The application successfully identified and parsed all 15 documents, correctly extracting the requested fields.
-*   **Note:** While initial results are promising, further testing with a broader range of document qualities, layouts, and edge cases is recommended to fully understand the model's limitations and identify potential breakpoints.
-
----
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -157,14 +147,8 @@ The application and the underlying extraction model were tested using a diverse 
 
 ---
 
-
 ## 🗺️ Roadmap & Future Enhancements
 
-### Next Steps (To-Do)
-
-*   [ ] Replace `RecentDocumentList` polling with Server-Sent Events (SSE) for real-time updates and efficiency.
-*   [ ] Implement batch upload functionality for processing multiple documents simultaneously.
-*   [ ] Integrate a Date Picker component in the frontend for easier editing of extracted date fields.
 
 ### Research & Exploration
 
@@ -182,6 +166,27 @@ The application and the underlying extraction model were tested using a diverse 
 
 ---
 
+## ✅ Testing & Validation
+
+The application and the underlying extraction model were tested using a diverse set of sample documents obtained online, covering examples of Passports, EAD cards, and US Driver's Licenses.
+
+*   **Scope:** 15 distinct document images/PDFs were processed.
+*   **Results:** The application successfully identified and parsed all 15 documents, correctly extracting the requested fields.
+*   **Note:** While initial results are promising, further testing with a broader range of document qualities, layouts, and edge cases is recommended to fully understand the model's limitations and identify potential breakpoints.
+
+---
+
+### Next Steps (To-Do)
+
+*   [ ] Replace `RecentDocumentList` polling with Server-Sent Events (SSE) for real-time updates and efficiency.
+*   [ ] Implement batch upload functionality for processing multiple documents simultaneously.
+*   [ ] Integrate a Date Picker component in the frontend for easier editing of extracted date fields.
+*   [ ] Create a separate table in DB for each document type, for future scalability.
+*   [ ] Break down the 4 main components into further modular components for resuability.
+*   [ ] Minor UI fixes to make the web-app more presentable.
+*   [ ] Create a dataset with labelled data/ground truths to automate performance evaluation.
+
+---
 
 ## 🌟 Contributing
 
