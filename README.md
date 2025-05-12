@@ -42,6 +42,16 @@ Based on this evaluation, I selected **Llama 4 Scout** as the primary model due 
 
 ---
 
+## ✅ Testing & Validation
+
+The application and the underlying extraction model were tested using a diverse set of sample documents obtained online, covering examples of Passports, EAD cards, and US Driver's Licenses.
+
+*   **Scope:** 15 distinct document images/PDFs were processed.
+*   **Results:** The application successfully identified and parsed all 15 documents, correctly extracting the requested fields.
+*   **Note:** While initial results are promising, further testing with a broader range of document qualities, layouts, and edge cases is recommended to fully understand the model's limitations and identify potential breakpoints.
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
