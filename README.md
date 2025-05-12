@@ -10,7 +10,8 @@ Simply upload an image or PDF of an EAD Card, Passport, or US Driver's License, 
 Extracting structured data accurately from diverse documents presents unique challenges, especially with name ordering and date formats varying across regions. I employed a two-step AI-driven approach:
 
 1.  **Identification & Contextualization:**
-    *   The uploaded document/image is first analyzed by the Llama 4 Scout model with a specific prompt to identify its type (Passport, EAD, Driver's License) and relevant region (Country for Passports, State for DLs).
+    *   If a PDF is uploaded, I convert it to an Image using `pdf2image` library.
+    *   The image is then analyzed by the Llama 4 Scout model with a specific prompt to identify its type (Passport, EAD, Driver's License) and relevant region (Country for Passports, State for DLs).
     *   This identification step is crucial for setting the context for the next stage.
 
 2.  **Targeted Extraction:**
@@ -59,7 +60,34 @@ The application and the underlying extraction model were tested using a diverse 
 *   **Python:** 3.8 or higher
 *   **Node.js:** 16.x or higher
 *   **Git:** For cloning the repository
-*   **Poppler:** Required by `pdf2image` for PDF processing (Installation varies by OS - see [pdf2image documentation](https://github.com/Belval/pdf2image#how-to-install))
+*   **Poppler:** Required by `pdf2image` for PDF processing
+    
+    **Installation Instructions by OS:**
+    
+    * **Windows:**
+      ```bash
+      # Windows users need to build or download poppler for Windows
+      # 1. Download the latest version from @oschwartz10612's builds:
+      # https://github.com/oschwartz10612/poppler-windows/releases/
+      
+      # 2. Either:
+      #    a) Add the bin/ folder to your system PATH, or
+      #    b) Use poppler_path argument in your code:
+      #       convert_from_path(pdf_path, poppler_path=r"C:\path\to\poppler-xx\bin")
+      ```
+    
+    * **macOS:**
+      ```bash
+      # Install using Homebrew
+      brew install poppler
+      ```
+    
+    * **Linux:**
+      ```bash
+      # Most distributions include pdftoppm and pdftocairo
+      # For Ubuntu/Debian:
+      sudo apt-get install poppler-utils
+
 
 ### Backend Setup
 
