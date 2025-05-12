@@ -36,8 +36,15 @@ const OriginalDocumentView: React.FC<OriginalDocumentViewProps> = ({ fileUrl, fi
         try {
           const docDetails = await getDocumentById(documentId);
           if (docDetails.status === 'completed' || docDetails.status === 'processing' || docDetails.status === 'failed') { // also show if processing or failed, to provide feedback
-            // Use the fileType from docDetails as it's more reliable from backend
-            setCurrentFileType(docDetails.file_type);
+            const backendFileType = docDetails.file_type.toLowerCase(); // Ensure lowercase
+            let mimeType = 'application/octet-stream'; // Default if unknown
+            if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'].includes(backendFileType)) {
+              mimeType = `image/${backendFileType === 'jpg' ? 'jpeg' : backendFileType}`;
+            } else if (backendFileType === 'pdf') {
+              mimeType = 'application/pdf';
+            }
+            // Use the derived MIME type
+            setCurrentFileType(mimeType); 
             if (docDetails.status === 'completed' || docDetails.status === 'processing') {
                  const url = await getDocumentContent(documentId);
                  setDisplayUrl(url);
