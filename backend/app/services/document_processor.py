@@ -18,8 +18,7 @@ from app.db.models import ExtractionJobs
 logger = logging.getLogger(__name__)
 
 # Groq configuration
-VISION_MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
-# VISION_MODEL = "meta-llama/llama-4-maverick-17b-128e-instruct"
+VISION_MODEL = os.environ.get("GROQ_VISION_MODEL_1", "meta-llama/llama-4-scout-17b-16e-instruct")
 
 # Retry configuration
 MAX_RETRIES = 3
@@ -131,13 +130,16 @@ def extract_document_info(client: Groq, image_data: str, doc_info: Dict[str, str
     # Create a prompt based on document type
     if "passport" in doc_type:
         prompt = f"""
-        You are examining a passport from {country}. 
+        You are examining a passport from {country}.
+        Note: Parse Date of Birth, Issue Date, and Expiry Date in the format as followed in {country}'s official documents and store them in the format MM/DD/YYYY.
         Extract the following attributes with high accuracy:
-        - Full Name (separate into First Name, Middle Name if any, Last Name)
-        - Date of Birth
+        - First Name
+        - Middle Name (if any)
+        - Last Name
+        - Date of Birth (MM/DD/YYYY)
         - Passport Number
-        - Issue Date
-        - Expiry Date
+        - Issue Date (MM/DD/YYYY)
+        - Expiry Date (MM/DD/YYYY)
         - Place of Birth
         - Gender
         - Nationality
@@ -148,13 +150,15 @@ def extract_document_info(client: Groq, image_data: str, doc_info: Dict[str, str
         prompt = """
         You are examining an Employment Authorization Document (EAD Card).
         Extract the following attributes with high accuracy:
-        - Full Name (separate into First Name, Middle Name if any, Last Name)
-        - Date of Birth
+        - First Name
+        - Middle Name (if any)
+        - Last Name
+        - Date of Birth (MM/DD/YYYY)  
         - Card Number
         - USCIS Number
         - Category
-        - Issue Date
-        - Expiry Date
+        - Issue Date (MM/DD/YYYY)
+        - Expiry Date (MM/DD/YYYY)
         - Country of Birth
         - Gender
         
@@ -165,11 +169,13 @@ def extract_document_info(client: Groq, image_data: str, doc_info: Dict[str, str
         prompt = f"""
         You are examining a Driver License from {location}, USA.
         Extract the following attributes with high accuracy:
-        - Full Name (separate into First Name, Middle Name if any, Last Name)
-        - Date of Birth
+        - First Name
+        - Middle Name (if any)
+        - Last Name
+        - Date of Birth (MM/DD/YYYY)
         - License Number
-        - Issue Date
-        - Expiry Date
+        - Issue Date (MM/DD/YYYY)
+        - Expiry Date (MM/DD/YYYY)
         - Address
         - Gender
         - Class/Type of License
@@ -180,11 +186,13 @@ def extract_document_info(client: Groq, image_data: str, doc_info: Dict[str, str
     else:
         prompt = """
         Extract all important information from this document including:
-        - Full Name
-        - Date of Birth
+        - First Name
+        - Middle Name (if any)
+        - Last Name
+        - Date of Birth (MM/DD/YYYY)
         - Document Number
-        - Issue Date
-        - Expiry Date
+        - Issue Date (MM/DD/YYYY)
+        - Expiry Date (MM/DD/YYYY)
         - Country of Issue
         
         Respond with a valid JSON object containing all these fields.
@@ -208,24 +216,50 @@ def extract_document_info(client: Groq, image_data: str, doc_info: Dict[str, str
             ],
             model=VISION_MODEL,
         )
+        print(response)
         return response
     
     response = retry_api_call(make_api_call, image_data, prompt)
     
-    result = response.choices[0].message.content
-    # Extract JSON from the response
+    raw_content = response.choices[0].message.content
+    # print(result) # You can remove this debug print
+
+    # New parsing logic:
+    parsed_json = None
     try:
-        return json.loads(result)
+        # Attempt 1: Try to parse the raw_content directly
+        parsed_json = json.loads(raw_content)
     except json.JSONDecodeError:
-        # Try to extract JSON if it's embedded in text
         import re
-        json_match = re.search(r'({.*})', result.replace('\n', ' '))
-        if json_match:
+        # Attempt 2: Look for JSON within ```json ... ``` markdown blocks
+        # re.DOTALL makes '.' match newlines as well
+        json_blocks = re.findall(r"```json\s*(.*?)\s*```", raw_content, re.DOTALL)
+        if json_blocks:
+            # Try parsing the last found block first (often the most refined)
             try:
-                return json.loads(json_match.group(1))
-            except:
-                pass
-        logger.warning(f"Warning: Could not parse JSON response. Raw response: {result}")
+                parsed_json = json.loads(json_blocks[-1])
+            except json.JSONDecodeError:
+                # If last block fails and there are others, try the first one
+                if len(json_blocks) > 1:
+                    try:
+                        parsed_json = json.loads(json_blocks[0])
+                    except json.JSONDecodeError:
+                        pass # Fall through to next attempt
+        
+        if parsed_json is None:
+            # Attempt 3: Fallback to a non-greedy search for any JSON object
+            # Using re.DOTALL for '.' to match newlines, and .*? for non-greedy
+            json_match = re.search(r'({.*?})', raw_content, re.DOTALL)
+            if json_match:
+                try:
+                    parsed_json = json.loads(json_match.group(1))
+                except json.JSONDecodeError:
+                    pass # Fall through
+
+    if parsed_json:
+        return parsed_json
+    else:
+        logger.warning(f"Warning: Could not parse JSON response. Raw response: {raw_content}")
         return {"error": "Failed to parse response"}
 
 

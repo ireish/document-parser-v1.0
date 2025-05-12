@@ -55,6 +55,6 @@ body {
   overflow: hidden;
 }
 
-.ExtractedDataViewContainer {
-  flex: 0 0 20%; /* Fixed width of 20% */
-} 
+/* .ExtractedDataViewContainer {
+  flex: 0 0 20%;
+}  */
