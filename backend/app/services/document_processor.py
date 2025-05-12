@@ -69,7 +69,7 @@ def retry_api_call(func, *args, **kwargs):
 def identify_document_type(client: Groq, image_data: str) -> Dict[str, str]:
     """Identify the type of document using Groq's vision model"""
     prompt = """
-    Identify this document type from these options: EAD Card, Passport, or a USA Drivers License.
+    Identify this document type from these 4 options: EAD Card, Passport, USA Drivers License, or Unknown Doc.
     
     If it's a Passport, also identify the country.
     If it's a Driver License, also identify the state.
