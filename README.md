@@ -179,12 +179,14 @@ The application and the underlying extraction model were tested using a diverse 
 ### Next Steps (To-Do)
 
 *   [ ] Replace `RecentDocumentList` polling with Server-Sent Events (SSE) for real-time updates and efficiency.
+*   [ ] Refactor all type/interface definitions to a ./`types` directory
 *   [ ] Implement batch upload functionality for processing multiple documents simultaneously.
 *   [ ] Integrate a Date Picker component in the frontend for easier editing of extracted date fields.
 *   [ ] Create a separate table in DB for each document type, for future scalability.
 *   [ ] Break down the 4 main components into further modular components for resuability.
 *   [ ] Minor UI fixes to make the web-app more presentable.
 *   [ ] Create a dataset with labelled data/ground truths to automate performance evaluation.
+*   [ ] Deploy the web-app uleveraging Vercel and Render
 
 ---
 
